@@ -8,11 +8,22 @@ const singleUpload = upload.single('image');
 
 router.post('/image-upload',function(req,res,next){
      singleUpload(req,res, (err)=>{
-         return res.json({'imageUrl': req.file});
+        const doclink = req.file.location;
+        const { heading,description,date,lastdate,department }= req.body;
+        const newUser= new User({
+            heading,
+            description,
+            date,
+            lastdate,
+            department,
+            doclink
+        });
+        newUser.save().then((person)=>{
+            res.send(person);
+        }).catch(next);
      });
-     User.create(req.body).then(function(person){
-        res.send(person);  
-      }).catch(next);
+     
+    
 });
 
 module.exports = router;

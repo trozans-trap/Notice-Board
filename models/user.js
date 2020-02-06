@@ -3,19 +3,28 @@ const Schema = mongoose.Schema;
 
 //create schema 
 const UserSchema = new Schema({
-    n:{
+    heading:{
         type: String,
-        required: [true, 'Name Field is required']
+        required: true
+
     },
-    email: {
+    description: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    lastdate:{
+        type: Date
+    },
+    department:{
+        type: String,
+        required: true
+    },
+    doclink:{
         type: String
-    },
-    mobile:{
-        type: Number
-    },
-    certi:{
-        type: String,
-        unique: true
     }
 });
 
