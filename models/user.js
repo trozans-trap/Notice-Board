@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        // required: true
     },
     date: {
         type: Date,
@@ -20,6 +20,10 @@ const UserSchema = new Schema({
         type: Date
     },
     department:{
+        type: String,
+        required: true
+    },
+    section:{
         type: String,
         required: true
     },
