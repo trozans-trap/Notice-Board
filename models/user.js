@@ -29,6 +29,9 @@ const UserSchema = new Schema({
     },
     doclink:{
         type: String
+    },
+    year: {
+        type: Number
     }
 });
 
