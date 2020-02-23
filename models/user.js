@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //create schema 
-const UserSchema = new Schema({
+const NoticeSchema = new Schema({
     heading:{
         type: String,
         required: true
@@ -24,16 +24,18 @@ const UserSchema = new Schema({
         required: true
     },
     section:{
-        type: String,
+        type: [String],
+        required: true
+    },
+    year: {
+        type: [Number],
         required: true
     },
     doclink:{
         type: String
-    },
-    year: {
-        type: Number
     }
+    
 });
 
-const User = mongoose.model('user',UserSchema);
-module.exports = User;
+const Notice = mongoose.model('notices',NoticeSchema);
+module.exports = Notice;

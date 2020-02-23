@@ -7,7 +7,7 @@ const upload = require('../image');
 
 const singleUpload = upload.single('image');
 
-router.get('/image-upload', function(req,res,next){
+router.get('/image-upload-get', function(req,res,next){
     var rollNo = req.body.rollNo;
      
     Student.findOne({rollNo : rollNo})
@@ -20,11 +20,15 @@ router.get('/image-upload', function(req,res,next){
                         {
                             User.find({year: year}).then((persons)=>{
                                  if(persons)
-                                 {
-                                     res.send(persons);
-                                 }
+                                    {   const doclink = persons
+                                        res.send(doclink);
+                                    }
+                                 else
+                                    res.send(`No Notice for ${year}`);
                             })
                         }
+                        else
+                          res.send(`No Notice for ${branch}`);
                     })
 
          }
@@ -55,12 +59,12 @@ router.post('/image-upload',function(req,res,next){
      });  
 });
 
-router.put('/image-upload',function(req,res,next){
+router.put('/image-upload-update',function(req,res,next){
     User.findOneAndUpdate({heading: req.body.heading}).then((person)=>{
 
         singleUpload(req,res, (err)=>{
             const doclink = req.file.location;
-            const { heading,description,date,lastdate,department,section }= req.body;
+            const { heading,description,date,lastdate,department,section,year }= req.body;
             const newUser= new User({
                 heading,
                 description,
@@ -68,7 +72,8 @@ router.put('/image-upload',function(req,res,next){
                 lastdate,
                 department,
                 doclink,
-                section
+                section,
+                year
             });
             newUser.save().then((person)=>{
                 res.send(person);
@@ -79,7 +84,7 @@ router.put('/image-upload',function(req,res,next){
     });
 });
 
-router.delete('/image-upload',(req,res,next)=>{
+router.delete('/image-upload-delete',(req,res,next)=>{
     User.findOneAndRemove({heading: req.body.heading}).then((person)=>{
         res.send(person);
     });
